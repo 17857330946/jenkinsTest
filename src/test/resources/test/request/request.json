@@ -1,0 +1,21 @@
+{
+  "requests": [
+    {
+      "tag": "login",
+      "scheme": "${scheme}",
+      "host": "${host}",
+      "port": "${port}",
+      "path": "/x/member/security/status",
+      "method": "post",
+      "post_method": "URL_ENCODED",
+      "headers": {
+        "headerName": "headerValue"
+      },
+      "mimeBody": {},
+      "textBody": {
+        "mid": "${mid}"
+      },
+      "requestCharset": "${requestCharset}"
+    }
+  ]
+}
