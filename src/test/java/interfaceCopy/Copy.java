@@ -14,6 +14,7 @@ import interfaceCopy.template.IMarker;
 import interfaceCopy.test.CommonTest;
 import interfaceCopy.test.process.IDeliverableHttpRequestProcessor;
 import interfaceCopy.test.process.ListJSONHttpRequestPrePostExceptionProcessor;
+import io.qameta.allure.Description;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
@@ -28,6 +29,7 @@ public class Copy extends CommonTest {
     @Named("Freemarker")
     IMarker marker;
 
+    @Description("copy allure")
     @CsvDataProvider(path = "classpath:test/request/data.csv", charset = "utf-8")
     @Test(dataProvider = "csv", dataProviderClass = DataProviders.class, description = "copy")
     public void copy(@NamedParam("mid") String mid,
