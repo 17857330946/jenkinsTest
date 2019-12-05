@@ -9,6 +9,12 @@
     <artifactId>InterfaceCopy</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <aspectj.version>1.8.10</aspectj.version>
+        <allure.version>2.10.0</allure.version>
+        <allure.report.path>${project.build.directory}/allure-results</allure.report.path>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -51,6 +57,23 @@
             <artifactId>okhttp</artifactId>
             <version>3.12.0</version>
         </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>1.3.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.testng</groupId>
+                    <artifactId>testng</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -72,12 +95,29 @@
                 <version>2.19.1</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <forkMode>never</forkMode>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
                     <suiteXmlFiles>
+                        <!--代表的是要执行的测试套件名称-->
                         <suiteXmlFile>xml/testNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <!--设置参数命令行-->
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemProperties>
+                        <!--指定json报告路径-->
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${allure.report.path}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
